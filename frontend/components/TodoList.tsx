@@ -50,6 +50,27 @@ const TodoList: React.FC<TodoListProps> = ({ todos, setTodos }) => {
     }
   };
 
+  const toggleCompletion = async (id: number, completed: boolean) => {
+    const token = localStorage.getItem('token');
+
+    try {
+      await fetch(`/api/todos/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ completed: !completed }),
+      });
+      setTodos(prevTodos =>
+        prevTodos.map(todo =>
+          todo.id === id ? { ...todo, completed: !completed } : todo
+        )
+      );
+    } catch (error) {
+      console.error('Error toggling completion:', error);
+    }
+  };
 
   const deleteTodo = async (id: number) => {
     const token = localStorage.getItem('token');
@@ -66,30 +87,36 @@ const TodoList: React.FC<TodoListProps> = ({ todos, setTodos }) => {
       console.error('Error deleting todo:', error);
     }
   };
-  
 
   return (
     <ul>
       {todos.map(todo => (
         <li key={todo.id}>
-          {editingId === todo.id ? (
-            <>
-              <input
-                type="text"
-                value={editTitle}
-                onChange={e => setEditTitle(e.target.value)}
-              />
-              <button onClick={() => handleEditTodo(todo.id)}>Save</button>
-            </>
-          ) : (
-            <>
-              {todo.title}
-              <div>
-                <button className='editBtn' onClick={() => setEditingId(todo.id)}>Edit</button>
-                <button className='deleteBtn' onClick={() => deleteTodo(todo.id)}>Delete</button>
-              </div>
-            </>
-          )}
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <input
+              type="checkbox"
+              checked={todo.completed}
+              onChange={() => toggleCompletion(todo.id, todo.completed)}
+            />
+            {editingId === todo.id ? (
+              <>
+                <input
+                  type="text"
+                  value={editTitle}
+                  onChange={e => setEditTitle(e.target.value)}
+                />
+                <button onClick={() => handleEditTodo(todo.id)}>Save</button>
+              </>
+            ) : (
+              <>
+                <span style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>{todo.title}</span>
+              </>
+            )}
+          </div>
+          <div>
+            <button className='editBtn' onClick={() => setEditingId(todo.id)}>Edit</button>
+            <button className='deleteBtn' onClick={() => deleteTodo(todo.id)}>Delete</button>
+          </div>
         </li>
       ))}
     </ul>
@@ -97,3 +124,4 @@ const TodoList: React.FC<TodoListProps> = ({ todos, setTodos }) => {
 };
 
 export default TodoList;
+
