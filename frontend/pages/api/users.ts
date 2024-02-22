@@ -8,7 +8,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     case 'GET':
       try {
         const token = req.headers.authorization?.replace('Bearer ', '') || '';
-        const response = await axios.get('http://localhost:3000/todos', {
+        const response = await axios.get('http://localhost:3000/users', {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -20,9 +20,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       break;
     case 'POST':
       try {
-        const { title, completed } = req.body;
+        const { username, password } = req.body;
         const token = req.headers.authorization?.replace('Bearer ', '') || '';
-        const response = await axios.post('http://localhost:3000/todos', { title, completed }, {
+        const response = await axios.post('http://localhost:3000/users', { username, password }, {
           headers: {
             Authorization: `Bearer ${token}`
           }

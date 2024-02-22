@@ -1,4 +1,4 @@
-.container {
+.todo-container {
     max-width: 400px;
     margin: 0 auto;
     padding: 20px;
@@ -14,7 +14,7 @@
     margin-bottom: 20px;
   }
   
-  form {
+.todo-form {
     display: flex;
     margin-bottom: 20px;
   }
@@ -25,17 +25,6 @@
     font-size: 1rem;
     border: 1px solid #ccc;
     border-radius: 4px;
-  }
-  
-  button.addBtn {
-    padding: 8px 16px;
-    font-size: 1rem;
-    background-color: #258837;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    margin-left: 10px;
-    cursor: pointer;
   }
   
   ul {
@@ -51,6 +40,28 @@
     padding: 10px;
     border-bottom: 1px solid #ccc;
   }
+
+  button.addBtn {
+    padding: 8px 16px;
+    font-size: 1rem;
+    background-color: #258837;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+
+  button.logoutBtn {
+    padding: 8px 16px;
+    font-size: 1rem;
+    background-color: #374dc9;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+  }
   
   button.deleteBtn {
     background-color: #dc3545;
@@ -59,6 +70,16 @@
     border-radius: 4px;
     padding: 5px 10px;
     cursor: pointer;
+  }
+
+  button.editBtn {
+    background-color: #1a2aa4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin: 3px;
   }
   
   button.deleteBtn:hover {
