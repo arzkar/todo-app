@@ -7,6 +7,13 @@ class Todo extends Model {
   public completed!: boolean;
   public userId!: number;
 
+  static associate(models: any) {
+    Todo.belongsTo(models.User, {
+      foreignKey: 'userId',
+      as: 'user',
+    });
+  }
+
 }
 
 Todo.init(
@@ -28,6 +35,11 @@ Todo.init(
     userId: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
+      references: {
+        model: 'users',
+        key: 'id',
+      },
+      onDelete: 'CASCADE',
     },
   },
   {

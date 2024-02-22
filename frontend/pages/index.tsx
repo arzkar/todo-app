@@ -19,9 +19,27 @@ const Home: React.FC = () => {
     router.push('/login');
   };
 
+  const handleAccDeletion = async () => {
+    const token = localStorage.getItem('token');
+    
+    try {
+      await fetch(`/api/users`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } catch (error) {
+      console.error('Error deleting account:', error);
+    }
+    localStorage.removeItem('token');
+    router.push('/login');
+  };
+
   return (
     <React.Fragment>
       <button className='logoutBtn' onClick={handleLogout}>Logout</button>
+      <button className='logoutBtn' onClick={handleAccDeletion}>Delete Account</button>
       <div className="todo-container">
         <h1>Todo</h1>
         <div className="form">

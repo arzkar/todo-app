@@ -12,7 +12,7 @@ class User extends Model {
   static async generateToken(username: string, password: string) {
     const user = await User.findOne({ where: { username } });
     if (!user || !bcrypt.compareSync(password, user!.password)) {
-        throw new Error('Invalid username or password');
+      throw new Error('Invalid username or password');
     }
     const token = jwt.sign({ userId: user.id }, 'secret', { expiresIn: '1h' });
     return token;

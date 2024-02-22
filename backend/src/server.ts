@@ -101,17 +101,14 @@ app.post('/users', async (req: Request, res: Response) => {
   res.json({ message: 'User created successfully' });
 });
 
-app.delete('/users/:id', async (req: Request, res: Response) => {
-  const { id } = req.params;
-
+app.delete('/users/', async (req: Request, res: Response) => {
   const token = req.headers.authorization?.replace('Bearer ', '') || '';
   const userId = getUserIdFromToken(token);
-
   if (!userId) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
-  await User.destroy({ where: { id } });
+  await User.destroy({ where: { id: userId } });
   res.json({ message: 'User deleted successfully' });
 });
 

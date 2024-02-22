@@ -32,8 +32,21 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         res.status(500).json({ error: 'Internal Server Error' });
       }
       break;
+    case 'DELETE':
+      try {
+          const token = req.headers.authorization?.replace('Bearer ', '') || '';
+          const response = await axios.delete(`http://localhost:3000/users`, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+          res.status(200).json(response.data);
+        } catch (error) {
+          res.status(500).json({ error: 'Internal Server Error' });
+        }
+      break
     default:
-      res.setHeader('Allow', ['GET', 'POST']);
+      res.setHeader('Allow', ['GET', 'POST', 'DELETE']);
       res.status(405).end(`Method ${method} Not Allowed`);
   }
 };

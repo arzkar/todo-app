@@ -39,18 +39,20 @@ const Login = () => {
         <div>
           <h1>Login</h1>
         </div>
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <div>
+          <input
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
         {error && <div className={styles.error}>{error}</div>}
         <button type="submit">Login</button>
         <button type="button" className='loginBtn' onClick={handleCreateUser}>Create User</button>
