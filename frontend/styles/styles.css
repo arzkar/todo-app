@@ -92,3 +92,28 @@
     color: #6c757d;
   }
   
+  .todo-form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .todo-form input[type="text"] {
+    flex: 1;
+    padding: 8px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+  }
+  
+  .todo-form button.addBtn {
+    padding: 8px 16px;
+    font-size: 1rem;
+    background-color: #258837;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }

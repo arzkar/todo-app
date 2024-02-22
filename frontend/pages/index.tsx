@@ -42,10 +42,10 @@ const Home: React.FC = () => {
       <button className='logoutBtn' onClick={handleAccDeletion}>Delete Account</button>
       <div className="todo-container">
         <h1>Todo</h1>
-        <div className="form">
-        <TodoForm onAdd={handleAddTodo} setTodos={setTodos} />
-        <TodoList todos={todos} setTodos={setTodos} />
+        <div className="todo-form">
+          <TodoForm onAdd={handleAddTodo} setTodos={setTodos} />
         </div>
+        <TodoList todos={todos} setTodos={setTodos} />
       </div>
     </React.Fragment>
   );

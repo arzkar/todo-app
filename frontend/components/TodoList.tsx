@@ -105,7 +105,8 @@ const TodoList: React.FC<TodoListProps> = ({ todos, setTodos }) => {
                   value={editTitle}
                   onChange={e => setEditTitle(e.target.value)}
                 />
-                <button onClick={() => handleEditTodo(todo.id)}>Save</button>
+                <button className='editBtn' onClick={() => handleEditTodo(todo.id)}>Save</button>
+                <button className='editBtn' onClick={() => setEditingId(null)}>Cancel</button>
               </>
             ) : (
               <>
@@ -114,8 +115,12 @@ const TodoList: React.FC<TodoListProps> = ({ todos, setTodos }) => {
             )}
           </div>
           <div>
-            <button className='editBtn' onClick={() => setEditingId(todo.id)}>Edit</button>
-            <button className='deleteBtn' onClick={() => deleteTodo(todo.id)}>Delete</button>
+            {editingId !== todo.id && (
+              <>
+                <button className='editBtn' onClick={() => setEditingId(todo.id)}>Edit</button>
+                <button className='deleteBtn' onClick={() => deleteTodo(todo.id)}>Delete</button>
+              </>
+            )}
           </div>
         </li>
       ))}
@@ -124,4 +129,3 @@ const TodoList: React.FC<TodoListProps> = ({ todos, setTodos }) => {
 };
 
 export default TodoList;
-
