@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
 
 import sequelize from './db';
-import Todo from './Todo';
+import Todo from './models/Todo';
 
 
 const app = express();
