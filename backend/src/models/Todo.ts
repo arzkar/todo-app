@@ -1,10 +1,12 @@
+import sequelize from '../db';
 import { Model, DataTypes } from 'sequelize';
-import sequelize from './db';
 
 class Todo extends Model {
   public id!: number;
   public title!: string;
   public completed!: boolean;
+  public userId!: number;
+
 }
 
 Todo.init(
@@ -22,6 +24,10 @@ Todo.init(
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false,
+    },
+    userId: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
     },
   },
   {
