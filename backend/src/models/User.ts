@@ -8,17 +8,11 @@ class User extends Model {
   public username!: string;
   public password!: string;
 
-  static associate(models: any) {
-    User.hasMany(models.Todo, {
-      foreignKey: 'userId',
-      as: 'todos',
-    });
-  }
 
   static async generateToken(username: string, password: string) {
     const user = await User.findOne({ where: { username } });
     if (!user || !bcrypt.compareSync(password, user!.password)) {
-      throw new Error('Invalid username or password');
+        throw new Error('Invalid username or password');
     }
     const token = jwt.sign({ userId: user.id }, 'secret', { expiresIn: '1h' });
     return token;

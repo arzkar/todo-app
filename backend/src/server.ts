@@ -20,19 +20,30 @@ app.use((req, res, next) => {
   
 // Todo routes
 app.get('/todos', async (req: Request, res: Response) => {
-  const todos = await Todo.findAll();
-  res.json(todos);
-});
-
-app.post('/todos', async (req: Request, res: Response) => {
-  const { title, completed } = req.body;
+  
   const token = req.headers.authorization?.replace('Bearer ', '') || '';
   const userId = getUserIdFromToken(token);
 
   if (!userId) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
+  const todos = await Todo.findAll({
+    where: {
+      userId: userId,
+    },
+  });
+  res.json(todos);
+});
 
+app.post('/todos', async (req: Request, res: Response) => {
+  const { title, completed } = req.body;
+
+  const token = req.headers.authorization?.replace('Bearer ', '') || '';
+  const userId = getUserIdFromToken(token);
+
+  if (!userId) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
   try {
     const todo = await Todo.create({ title, completed, userId });
     res.status(201).json(todo);
@@ -43,19 +54,41 @@ app.post('/todos', async (req: Request, res: Response) => {
 
 app.put('/todos/:id', async (req: Request, res: Response) => {
   const { id } = req.params;
+
+  const token = req.headers.authorization?.replace('Bearer ', '') || '';
+  const userId = getUserIdFromToken(token);
+
+  if (!userId) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+
   const { title, completed } = req.body;
-  await Todo.update({ title, completed }, { where: { id } });
+  await Todo.update({ title, completed }, { where: { id: id, userId: userId } });
   res.json({ message: 'Todo updated successfully' });
 });
 
 app.delete('/todos/:id', async (req: Request, res: Response) => {
   const { id } = req.params;
-  await Todo.destroy({ where: { id } });
+
+  const token = req.headers.authorization?.replace('Bearer ', '') || '';
+  const userId = getUserIdFromToken(token);
+
+  if (!userId) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+  await Todo.destroy({ where: { id: id, userId: userId } });
   res.json({ message: 'Todo deleted successfully' });
 });
 
 // User routes
 app.get('/users', async (req: Request, res: Response) => {
+  const token = req.headers.authorization?.replace('Bearer ', '') || '';
+  const userId = getUserIdFromToken(token);
+
+  if (!userId) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+
   const users = await User.findAll();
   res.json(users);
 });
@@ -70,6 +103,14 @@ app.post('/users', async (req: Request, res: Response) => {
 
 app.delete('/users/:id', async (req: Request, res: Response) => {
   const { id } = req.params;
+
+  const token = req.headers.authorization?.replace('Bearer ', '') || '';
+  const userId = getUserIdFromToken(token);
+
+  if (!userId) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+
   await User.destroy({ where: { id } });
   res.json({ message: 'User deleted successfully' });
 });

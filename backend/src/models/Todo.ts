@@ -5,13 +5,8 @@ class Todo extends Model {
   public id!: number;
   public title!: string;
   public completed!: boolean;
+  public userId!: number;
 
-  static associate(models: any) {
-    Todo.belongsTo(models.User, {
-      foreignKey: 'userId',
-      as: 'user',
-    });
-  }
 }
 
 Todo.init(
@@ -29,6 +24,10 @@ Todo.init(
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false,
+    },
+    userId: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
     },
   },
   {
