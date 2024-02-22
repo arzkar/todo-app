@@ -18,7 +18,7 @@ CREATE DATABASE todo_app;
 ```
 cd backend/
 npm install
-npm start
+npm run dev // dev server
 ```
 
 ### Frontend
@@ -27,5 +27,5 @@ npm start
 ```
 cd frontend/
 npm install
-npm run dev
+npm run dev // dev server
 ```
