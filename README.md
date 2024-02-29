@@ -1,5 +1,10 @@
 # Todo App
 
+A basic todo app with the following features:
+- User Create & Login
+- Add, Remove and Edit Todos
+- There is a checkbox for each todo which is used to mark it as complete
+
 ## Setup
 
 - You need to install MySQL & Node.
